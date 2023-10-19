@@ -20,8 +20,12 @@ const gameBoard = (function () {
 })();
 
 const gameController = (function () {
+  const player1 = createPlayer('Player1', 'x');
+  const player2 = createPlayer('Player2', 'o');
+  let nextPlayer = player1;
+
   const move = (index) => {
-    gameBoard.updateSquare(index, '');
+    gameBoard.updateSquare(index, nextPlayer.weapon);
     gameBoard.updateBoard();
   }
 
@@ -33,7 +37,15 @@ const gameController = (function () {
     return false;
   }
 
-  return {move, validMove};
+  const changePlayer = () => {
+    if (nextPlayer == player1) {
+      nextPlayer = player2;
+    } else {
+      nextPlayer = player1;
+    }
+  }
+
+  return {move, validMove, changePlayer};
 })();
 
 function createPlayer (name, weapon) {
@@ -50,5 +62,6 @@ board.addEventListener("click", (e) => {
   index = e.target.id;
   if (gameController.validMove(index)) {
     gameController.move(index);
+    gameController.changePlayer();
   }
 });
