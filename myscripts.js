@@ -12,12 +12,28 @@ const gameBoard = (function () {
     board[index] = char;
   }
 
-  return {updateBoard, updateSquare};
+  const getContent = (index) => {
+    return board[index];
+  }
+
+  return {updateBoard, updateSquare, getContent};
 })();
 
 const gameController = (function () {
+  const move = (index) => {
+    gameBoard.updateSquare(index, '');
+    gameBoard.updateBoard();
+  }
 
-  return {};
+  const validMove = (index) => {
+    content = gameBoard.getContent(index);
+    if (content == '') {
+      return true;
+    }
+    return false;
+  }
+
+  return {move, validMove};
 })();
 
 function createPlayer (name, weapon) {
@@ -27,3 +43,12 @@ function createPlayer (name, weapon) {
 
   return {name, weapon, getScore, incrementScore};
 }
+
+const board = document.querySelector(".board")
+
+board.addEventListener("click", (e) => {
+  index = e.target.id;
+  if (gameController.validMove(index)) {
+    gameController.move(index);
+  }
+});
