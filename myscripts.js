@@ -2,7 +2,10 @@ const gameBoard = (function () {
   let board = ['', '', '', '', '', '', '', '', ''];
 
   const update = () => {
-
+    for (let i = 0; i < board.length; i++) {
+      const div = document.getElementById(i);
+      div.textContent = board[i];
+    }
   }
 
   return {update};
@@ -20,3 +23,5 @@ function createPlayer (name, weapon) {
 
   return {name, weapon, getScore, incrementScore};
 }
+
+gameBoard.update();

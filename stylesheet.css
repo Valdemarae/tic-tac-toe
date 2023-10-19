@@ -41,18 +41,22 @@ body {
   flex: 1;
 }
 
-#_3, #_4, #_5 {
+._3, ._4, ._5 {
   border-bottom: 4px solid black;
   border-top: 4px solid black;
 }
 
-#_1, #_4, #_7 {
+._1, ._4, ._7 {
   border-right: 4px solid black;
   border-left: 4px solid black;
 }
 
 .board-square {
   flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
 }
 
 .board-square:hover {
