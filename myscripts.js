@@ -1,14 +1,18 @@
 const gameBoard = (function () {
   let board = ['', '', '', '', '', '', '', '', ''];
 
-  const update = () => {
+  const updateBoard = () => {
     for (let i = 0; i < board.length; i++) {
       const div = document.getElementById(i);
       div.textContent = board[i];
     }
   }
 
-  return {update};
+  const updateSquare = (index, char) => {
+    board[index] = char;
+  }
+
+  return {updateBoard, updateSquare};
 })();
 
 const gameController = (function () {
@@ -23,5 +27,3 @@ function createPlayer (name, weapon) {
 
   return {name, weapon, getScore, incrementScore};
 }
-
-gameBoard.update();
