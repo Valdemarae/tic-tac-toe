@@ -33,7 +33,7 @@ const gameController = (function () {
       if (gameController.validMove(index)) {
         gameController.move(index);
     
-        if (gameController.gameOver()) {
+        if (gameController.playerWon() || gameController.tie()) {
 
         } else {
           gameController.changePlayer();
@@ -63,7 +63,7 @@ const gameController = (function () {
     }
   }
 
-  const gameOver = () => {
+  const playerWon = () => {
     weapon = nextPlayer.weapon;
     for (let h = 0; h < 3; h++){
       let horizontal = vertical = diagonal1 = diagonal2 = [false, false, false];
@@ -88,7 +88,16 @@ const gameController = (function () {
     }
   }
 
-  return {move, validMove, changePlayer, playGame, gameOver};
+  const tie = () => {
+    for (let i = 0; i < 9; i++) {
+      if (gameBoard.getContent(i) == '') {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  return {move, validMove, changePlayer, playGame, playerWon, tie};
 })();
 
 function createPlayer (name, weapon) {
