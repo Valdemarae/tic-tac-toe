@@ -1,11 +1,15 @@
 const gameBoard = (function () {
   let board = ['', '', '', '', '', '', '', '', ''];
 
-  return {};
+  const update = () => {
+
+  }
+
+  return {update};
 })();
 
 const gameController = (function () {
-  
+
   return {};
 })();
 

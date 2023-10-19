@@ -1,0 +1,66 @@
+* {
+  font-family: 'OCR A Std', monospace;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background-image: url("https://media.istockphoto.com/id/1300296030/photo/tropical-beach-palm-trees-sea-wave-and-white-sand.jpg?s=612x612&w=0&k=20&c=6xdlJDxSp5FVUpQC7AOt3ooHYPd3-gTQNF6lmwX5krk=");
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size:cover; /* Resize the background image to cover the entire container */
+  background-position:top; /* Center the image */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+body {
+  background-color: #cee2ff;
+  border: 3px solid black;
+  border-radius: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 700px;
+  width: 1100px;
+  gap: 30px;
+}
+
+.board {
+  width: 370px;
+  height: 370px;
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  flex: 1;
+}
+
+#_3, #_4, #_5 {
+  border-bottom: 4px solid black;
+  border-top: 4px solid black;
+}
+
+#_1, #_4, #_7 {
+  border-right: 4px solid black;
+  border-left: 4px solid black;
+}
+
+.board-square {
+  flex: 1;
+}
+
+.board-square:hover {
+  cursor: pointer;
+  background-color: #cadeff;
+  border-radius: 5px;
+}
+
+.title {
+  font-size: 50px;
+}
