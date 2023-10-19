@@ -25,8 +25,6 @@ const gameController = (function () {
   
   let nextPlayer = player1;
 
-  const board = document.querySelector(".board")
-
   const playGame = () => {
     board.addEventListener("click", (e) => {
       index = e.target.id;
@@ -34,7 +32,8 @@ const gameController = (function () {
         gameController.move(index);
     
         if (gameController.playerWon() || gameController.tie()) {
-
+          nextPlayer.incrementScore();
+          gameOver.display();
         } else {
           gameController.changePlayer();
         }
@@ -97,7 +96,44 @@ const gameController = (function () {
     return true;
   }
 
-  return {move, validMove, changePlayer, playGame, playerWon, tie};
+  const getWinnerName = () => {
+    return nextPlayer.name;
+  }
+
+  const getScore = () => {
+    return player1.getScore() + " : " + player2.getScore();
+  }
+
+  return {move, validMove, changePlayer, playGame, playerWon, tie, getWinnerName, getScore};
+})();
+
+const gameOver = (function () {
+  const display = () => {
+    div = document.createElement("div");
+    div.classList.add("game_over");
+
+    information = document.createElement("h1");
+    information.classList.add("information");
+    information.textContent = "Game over!"
+    winner = document.createElement("h2");
+    winner.classList.add("winner");
+    winner.textContent = gameController.getWinnerName() + " is the winner!";
+    score = document.createElement("h2");
+    score.classList.add("score");
+    score.textContent = " Score is " + gameController.getScore();
+    button = document.createElement("button");
+    button.classList.add("play_again_btn");
+    button.textContent = "Play again?";
+
+    div.appendChild(information);
+    div.appendChild(winner);
+    div.appendChild(score);
+    div.appendChild(button);
+
+    board.appendChild(div);
+  }
+
+  return {display};
 })();
 
 function createPlayer (name, weapon) {
@@ -107,5 +143,7 @@ function createPlayer (name, weapon) {
 
   return {name, weapon, getScore, incrementScore};
 }
+
+const board = document.querySelector(".board");
 
 gameController.playGame();
