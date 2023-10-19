@@ -22,7 +22,25 @@ const gameBoard = (function () {
 const gameController = (function () {
   const player1 = createPlayer('Player1', 'x');
   const player2 = createPlayer('Player2', 'o');
+  
   let nextPlayer = player1;
+
+  const board = document.querySelector(".board")
+
+  const playGame = () => {
+    board.addEventListener("click", (e) => {
+      index = e.target.id;
+      if (gameController.validMove(index)) {
+        gameController.move(index);
+    
+        if (gameController.gameOver()) {
+
+        } else {
+          gameController.changePlayer();
+        }
+      }
+    });
+  }
 
   const move = (index) => {
     gameBoard.updateSquare(index, nextPlayer.weapon);
@@ -45,7 +63,32 @@ const gameController = (function () {
     }
   }
 
-  return {move, validMove, changePlayer};
+  const gameOver = () => {
+    weapon = nextPlayer.weapon;
+    for (let h = 0; h < 3; h++){
+      let horizontal = vertical = diagonal1 = diagonal2 = [false, false, false];
+      for (let i = 0, j = 0, p = 0, f = 2; i < 3; ++i, j += 3, p += 4, f += 2) {
+        if (gameBoard.getContent(i) == weapon) {
+          horizontal[i] = true;
+        }
+        if (gameBoard.getContent(j) == weapon) {
+          vertical[i] = true;
+        }
+        if (gameBoard.getContent(p) == weapon) {
+          diagonal1 = true;
+        }
+        if (gameBoard.getContent(f) == weapon) {
+          diagonal2 = true;
+        }
+      }
+      if (horizontal[0] && horizontal[1] && horizontal[2] || vertical[0] && vertical[1] && vertical[2] ||
+        diagonal1[0] && diagonal1[1] && diagonal1[2] || diagonal2[0] && diagonal2[1] && diagonal2[2]) {
+        return true;
+      }
+    }
+  }
+
+  return {move, validMove, changePlayer, playGame, gameOver};
 })();
 
 function createPlayer (name, weapon) {
@@ -56,12 +99,4 @@ function createPlayer (name, weapon) {
   return {name, weapon, getScore, incrementScore};
 }
 
-const board = document.querySelector(".board")
-
-board.addEventListener("click", (e) => {
-  index = e.target.id;
-  if (gameController.validMove(index)) {
-    gameController.move(index);
-    gameController.changePlayer();
-  }
-});
+gameController.playGame();
