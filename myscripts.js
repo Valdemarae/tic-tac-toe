@@ -64,26 +64,25 @@ const gameController = (function () {
 
   const playerWon = () => {
     weapon = nextPlayer.weapon;
+    let i = 0;
     for (let h = 0; h < 3; h++){
-      let horizontal = vertical = diagonal1 = diagonal2 = [false, false, false];
-      for (let i = 0, j = 0, p = 0, f = 2; i < 3; ++i, j += 3, p += 4, f += 2) {
+      let j = h;
+      let horizontal = vertical = [false, false, false];
+      for (let c = 0; c < 3; ++i, j += 3, c++) {
         if (gameBoard.getContent(i) == weapon) {
-          horizontal[i] = true;
+          horizontal[c] = true;
         }
         if (gameBoard.getContent(j) == weapon) {
-          vertical[i] = true;
-        }
-        if (gameBoard.getContent(p) == weapon) {
-          diagonal1 = true;
-        }
-        if (gameBoard.getContent(f) == weapon) {
-          diagonal2 = true;
+          vertical[c] = true;
         }
       }
-      if (horizontal[0] && horizontal[1] && horizontal[2] || vertical[0] && vertical[1] && vertical[2] ||
-        diagonal1[0] && diagonal1[1] && diagonal1[2] || diagonal2[0] && diagonal2[1] && diagonal2[2]) {
+      if (horizontal[0] && horizontal[1] && horizontal[2] || vertical[0] && vertical[1] && vertical[2]) {
         return true;
       }
+    }
+    if (gameBoard.getContent(0) == weapon && gameBoard.getContent(4) == weapon && gameBoard.getContent(8) == weapon ||
+    gameBoard.getContent(2) == weapon && gameBoard.getContent(4) == weapon && gameBoard.getContent(6) == weapon){
+      return true;
     }
   }
 
