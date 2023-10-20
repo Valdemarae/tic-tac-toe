@@ -39,7 +39,9 @@ const gameController = (function () {
         gameController.move(index);
     
         if (gameController.playerWon() || gameController.tie()) {
-          nextPlayer.incrementScore();
+          if (gameController.playerWon()) {
+            nextPlayer.incrementScore();
+          }
           gameOver.display();
         } else {
           gameController.changePlayer();
@@ -125,7 +127,13 @@ const gameOver = (function () {
     information.textContent = "Game over!"
     winner = document.createElement("h2");
     winner.classList.add("winner");
-    winner.textContent = gameController.getWinnerName() + " is the winner!";
+
+    if (gameController.playerWon()){
+      winner.textContent = gameController.getWinnerName() + " is the winner!";
+    } else {
+      winner.textContent = "It's A Tie!";
+    }
+
     score = document.createElement("h2");
     score.classList.add("score");
     score.textContent = " Score is " + gameController.getScore();
