@@ -46,6 +46,13 @@ const gameBoard = (function () {
 const gameController = (function () {
   const player1 = createPlayer('Player1', 'x');
   const player2 = createPlayer('Player2', 'o');
+
+  document.querySelector(".player1").addEventListener("change", (e) => {
+    player1.name = e.target.value;
+  });
+  document.querySelector(".player2").addEventListener("change", (e) => {
+    player2.name = e.target.value;
+  });
   
   let nextPlayer = player1;
   let startingPlayer = player1;
