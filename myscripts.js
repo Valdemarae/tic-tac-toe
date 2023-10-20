@@ -42,7 +42,7 @@ const gameController = (function () {
           if (gameController.playerWon()) {
             nextPlayer.incrementScore();
           }
-          console.log("hi");
+          gameOver.display();
         } else {
           gameController.changePlayer();
         }
