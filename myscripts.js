@@ -108,6 +108,8 @@ const gameController = (function () {
 
 const gameOver = (function () {
   const display = () => {
+    document.querySelector(".board").style.cssText += 'pointer-events: none';
+
     div = document.createElement("div");
     div.classList.add("game_over");
 
@@ -130,6 +132,11 @@ const gameOver = (function () {
     div.appendChild(button);
 
     board.appendChild(div);
+
+    button.addEventListener("click", (e) => {
+      board.removeChild(div);
+      board.style.cssText += 'pointer-events: all';
+    });
   }
 
   return {display};
@@ -146,5 +153,3 @@ function createPlayer (name, weapon) {
 const board = document.querySelector(".board");
 
 gameController.playGame();
-
-gameOver.display();

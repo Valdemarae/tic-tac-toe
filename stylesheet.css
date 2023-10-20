@@ -73,12 +73,11 @@ body {
 .game_over {
   background: #000000;
   border-radius: 30%;
-  box-shadow: 0 10px 20px rgba(black, 0.2);
+  border: 6px solid rgb(153, 51, 54);
   left: 50%;
   max-width: 90%;
-  pointer-events: none;
   position: absolute;
-  top: 20%;
+  top: 56%;
   transform: translate(-50%, -50%);
   width: 40vw;
   text-align: left;
@@ -89,6 +88,25 @@ body {
   align-items: center;
   color: white;
   font-size: larger;
+  animation: soft 3s ease;
+}
+
+@keyframes soft {
+  from {
+    transform: translate(-50%, -50%) scale(0);
+  }
+  
+  40% {
+    transform: translate(-50%, -50%) scale(0);
+  }
+
+  90% {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+
+  to {
+    transform: translate(-50%, -50%) scale(1);
+  }
 }
 
 .play_again_btn {
@@ -98,6 +116,8 @@ body {
   border-radius: 15px;
   background-color: rgb(153, 51, 54);
   color: white;
+  cursor: pointer;
+  pointer-events: all;
 }
 
 .winner {
