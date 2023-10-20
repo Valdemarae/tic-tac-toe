@@ -10,6 +10,12 @@ const gameBoard = (function () {
 
   const updateSquare = (index, char) => {
     board[index] = char;
+    const div = document.getElementById(index);
+    div.textContent = char;
+    div.classList.add("animate");
+    div.addEventListener("animationend", () => {
+      div.classList.remove("animate");
+    })
   }
 
   const getContent = (index) => {
@@ -23,7 +29,18 @@ const gameBoard = (function () {
     gameBoard.updateBoard();
   }
 
-  return {updateBoard, updateSquare, getContent, clear};
+  const winAnimate = () => {
+    indexes = gameController.getWinIndexes();
+    for (let i = 0; i < 3; i++) {
+      const div = document.getElementById(indexes[i]);
+      div.classList.add("animate_win");
+      div.addEventListener("animationend", () => {
+        div.classList.remove("animate_win");
+      })
+    }
+  }
+
+  return {updateBoard, updateSquare, getContent, clear, winAnimate};
 })();
 
 const gameController = (function () {
@@ -42,6 +59,7 @@ const gameController = (function () {
           if (gameController.playerWon()) {
             nextPlayer.incrementScore();
             gameController.updateScore();
+            gameBoard.winAnimate();
           }
           gameOver.display();
         } else {
@@ -53,7 +71,6 @@ const gameController = (function () {
 
   const move = (index) => {
     gameBoard.updateSquare(index, nextPlayer.weapon);
-    gameBoard.updateBoard();
   }
 
   const validMove = (index) => {
@@ -120,7 +137,35 @@ const gameController = (function () {
     score.textContent = player1.getScore() + ":" + player2.getScore();
   }
 
-  return {move, validMove, changePlayer, playGame, playerWon, tie, getWinnerName, getScore, updateScore};
+  const getWinIndexes = () => {
+    let weapon = nextPlayer.weapon;
+    let i = 0;
+    for (let h = 0; h < 3; h++){
+      let j = h;
+      let horizontal = [false, false, false], vertical = [false, false, false];
+      for (let c = 0; c < 3; ++i, j += 3, c++) {
+        if (gameBoard.getContent(i) == weapon) {
+          horizontal[c] = true;
+        }
+        if (gameBoard.getContent(j) == weapon) {
+          vertical[c] = true;
+        }
+      }
+
+      if (horizontal[0] && horizontal[1] && horizontal[2]) {
+        return [i - 1, i - 2, i - 3];
+      } else if (vertical[0] && vertical[1] && vertical[2]) {
+        return [j - 3, j - 6, j - 9];
+      }
+    }
+    if (gameBoard.getContent(0) == weapon && gameBoard.getContent(4) == weapon && gameBoard.getContent(8) == weapon){
+      return [0, 4, 8];
+    } else if (gameBoard.getContent(2) == weapon && gameBoard.getContent(4) == weapon && gameBoard.getContent(6) == weapon) {
+      return [2, 4, 6];
+    }
+  }
+
+  return {move, validMove, changePlayer, playGame, playerWon, tie, getWinnerName, getScore, updateScore, getWinIndexes};
 })();
 
 const gameOver = (function () {

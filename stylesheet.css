@@ -77,7 +77,7 @@ body {
   left: 50%;
   max-width: 90%;
   position: absolute;
-  top: 56%;
+  top: 50%;
   transform: translate(-50%, -50%);
   width: 40vw;
   text-align: left;
@@ -122,4 +122,42 @@ body {
 
 .winner {
   text-align: center;
+}
+
+.animate {
+  animation: show 0.5s ease-in-out;
+}
+
+@keyframes show {
+  from {
+    font-size: 0;
+  }
+
+  50% {
+    font-size: 60px;
+  }
+
+  to {
+    font-size: 40px;
+  }
+}
+
+.animate_win {
+  animation: show_win 0.5s;
+  animation-iteration-count: 3;
+  color: red;
+}
+
+@keyframes show_win {
+  from {
+    font-size: 0;
+  }
+
+  50% {
+    font-size: 80px;
+  }
+
+  to {
+    font-size: 40px;
+  }
 }
