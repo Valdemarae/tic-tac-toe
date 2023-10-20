@@ -146,3 +146,5 @@ function createPlayer (name, weapon) {
 const board = document.querySelector(".board");
 
 gameController.playGame();
+
+gameOver.display();
