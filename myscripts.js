@@ -62,9 +62,8 @@ const gameController = (function () {
             gameBoard.winAnimate();
           }
           gameOver.display();
-        } else {
-          gameController.changePlayer();
         }
+        gameController.changePlayer();
       }
     });
   }
