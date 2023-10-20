@@ -41,6 +41,7 @@ const gameController = (function () {
         if (gameController.playerWon() || gameController.tie()) {
           if (gameController.playerWon()) {
             nextPlayer.incrementScore();
+            gameController.updateScore();
           }
           gameOver.display();
         } else {
@@ -114,7 +115,12 @@ const gameController = (function () {
     return player1.getScore() + " : " + player2.getScore();
   }
 
-  return {move, validMove, changePlayer, playGame, playerWon, tie, getWinnerName, getScore};
+  const updateScore = () => {
+    const score = document.querySelector(".score");
+    score.textContent = player1.getScore() + ":" + player2.getScore();
+  }
+
+  return {move, validMove, changePlayer, playGame, playerWon, tie, getWinnerName, getScore, updateScore};
 })();
 
 const gameOver = (function () {

@@ -30,7 +30,7 @@ body {
 }
 
 .board {
-  width: 37vw;
+  width: 37vh;
   height: 37vh;
   display: flex;
   flex-direction: column;
