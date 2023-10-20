@@ -16,7 +16,14 @@ const gameBoard = (function () {
     return board[index];
   }
 
-  return {updateBoard, updateSquare, getContent};
+  const clear = () => {
+    for (let i = 0; i < board.length; i++) {
+      board[i] = '';
+    }
+    gameBoard.updateBoard();
+  }
+
+  return {updateBoard, updateSquare, getContent, clear};
 })();
 
 const gameController = (function () {
@@ -27,7 +34,7 @@ const gameController = (function () {
 
   const playGame = () => {
     board.addEventListener("click", (e) => {
-      index = e.target.id;
+      let index = e.target.id;
       if (gameController.validMove(index)) {
         gameController.move(index);
     
@@ -47,7 +54,7 @@ const gameController = (function () {
   }
 
   const validMove = (index) => {
-    content = gameBoard.getContent(index);
+    let content = gameBoard.getContent(index);
     if (content == '') {
       return true;
     }
@@ -63,7 +70,7 @@ const gameController = (function () {
   }
 
   const playerWon = () => {
-    weapon = nextPlayer.weapon;
+    let weapon = nextPlayer.weapon;
     let i = 0;
     for (let h = 0; h < 3; h++){
       let j = h;
@@ -136,6 +143,7 @@ const gameOver = (function () {
     button.addEventListener("click", (e) => {
       board.removeChild(div);
       board.style.cssText += 'pointer-events: all';
+      gameBoard.clear();
     });
   }
 
