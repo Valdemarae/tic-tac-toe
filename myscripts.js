@@ -48,6 +48,7 @@ const gameController = (function () {
   const player2 = createPlayer('Player2', 'o');
   
   let nextPlayer = player1;
+  let startingPlayer = player1;
 
   const playGame = () => {
     document.querySelector(".player1").classList.add("show_turn");
@@ -69,6 +70,18 @@ const gameController = (function () {
         }
       }
     });
+  }
+
+  const changeStartingPlayer = () => {
+    if (startingPlayer == player1) {
+      startingPlayer = player2;
+      nextPlayer = player2;
+      document.querySelector(".player2").classList.add("show_turn");
+    } else {
+      startingPlayer = player1;
+      nextPlayer = player1;
+      document.querySelector(".player1").classList.add("show_turn");
+    }
   }
 
   const move = (index) => {
@@ -179,7 +192,7 @@ const gameController = (function () {
     }
   }
 
-  return {move, validMove, changePlayer, playGame, playerWon, tie, getWinnerName, getScore, updateScore, getWinIndexes, stopShowingTurn};
+  return {move, validMove, changePlayer, playGame, playerWon, tie, getWinnerName, getScore, updateScore, getWinIndexes, stopShowingTurn, changeStartingPlayer};
 })();
 
 const gameOver = (function () {
@@ -219,7 +232,7 @@ const gameOver = (function () {
       board.removeChild(div);
       board.style.cssText += 'pointer-events: all';
       gameBoard.clear();
-      gameController.changePlayer();
+      gameController.changeStartingPlayer();
     });
   }
 
