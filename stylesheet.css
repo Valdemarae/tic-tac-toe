@@ -27,6 +27,8 @@ body {
   height: 70vh;
   width: 70vw;
   gap: 30px;
+  min-width: max-content;
+  min-height: max-content;
 }
 
 .board {
@@ -160,4 +162,37 @@ body {
   to {
     font-size: 40px;
   }
+}
+
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.player1, .player2 {
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.show_turn {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+	0% {
+		transform: scale(0.95);
+		color: rgb(255, 81, 0);
+	}
+
+	50% {
+		transform: scale(1);
+		color: rgb(255, 0, 0);
+	}
+
+	100% {
+		transform: scale(0.95);
+		color: rgb(255, 55, 0);
+	}
 }

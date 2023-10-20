@@ -50,20 +50,23 @@ const gameController = (function () {
   let nextPlayer = player1;
 
   const playGame = () => {
+    document.querySelector(".player1").classList.add("show_turn");
     board.addEventListener("click", (e) => {
       let index = e.target.id;
       if (gameController.validMove(index)) {
         gameController.move(index);
-    
+        
         if (gameController.playerWon() || gameController.tie()) {
           if (gameController.playerWon()) {
             nextPlayer.incrementScore();
             gameController.updateScore();
             gameBoard.winAnimate();
           }
+          gameController.stopShowingTurn();
           gameOver.display();
+        } else {
+          gameController.changePlayer();
         }
-        gameController.changePlayer();
       }
     });
   }
@@ -83,8 +86,20 @@ const gameController = (function () {
   const changePlayer = () => {
     if (nextPlayer == player1) {
       nextPlayer = player2;
+      document.querySelector(".player1").classList.remove("show_turn");
+      document.querySelector(".player2").classList.add("show_turn");
     } else {
+      document.querySelector(".player2").classList.remove("show_turn");
+      document.querySelector(".player1").classList.add("show_turn");
       nextPlayer = player1;
+    }
+  }
+
+  const stopShowingTurn = () => {
+    if (nextPlayer == player1){
+      document.querySelector(".player1").classList.remove("show_turn");
+    } else {
+      document.querySelector(".player2").classList.remove("show_turn");
     }
   }
 
@@ -164,7 +179,7 @@ const gameController = (function () {
     }
   }
 
-  return {move, validMove, changePlayer, playGame, playerWon, tie, getWinnerName, getScore, updateScore, getWinIndexes};
+  return {move, validMove, changePlayer, playGame, playerWon, tie, getWinnerName, getScore, updateScore, getWinIndexes, stopShowingTurn};
 })();
 
 const gameOver = (function () {
@@ -204,6 +219,7 @@ const gameOver = (function () {
       board.removeChild(div);
       board.style.cssText += 'pointer-events: all';
       gameBoard.clear();
+      gameController.changePlayer();
     });
   }
 
