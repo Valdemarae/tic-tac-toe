@@ -42,7 +42,7 @@ const gameController = (function () {
           if (gameController.playerWon()) {
             nextPlayer.incrementScore();
           }
-          gameOver.display();
+          console.log("hi");
         } else {
           gameController.changePlayer();
         }
@@ -76,7 +76,7 @@ const gameController = (function () {
     let i = 0;
     for (let h = 0; h < 3; h++){
       let j = h;
-      let horizontal = vertical = [false, false, false];
+      let horizontal = [false, false, false], vertical = [false, false, false];
       for (let c = 0; c < 3; ++i, j += 3, c++) {
         if (gameBoard.getContent(i) == weapon) {
           horizontal[c] = true;
@@ -85,6 +85,7 @@ const gameController = (function () {
           vertical[c] = true;
         }
       }
+
       if (horizontal[0] && horizontal[1] && horizontal[2] || vertical[0] && vertical[1] && vertical[2]) {
         return true;
       }
@@ -93,6 +94,7 @@ const gameController = (function () {
     gameBoard.getContent(2) == weapon && gameBoard.getContent(4) == weapon && gameBoard.getContent(6) == weapon){
       return true;
     }
+    return false;
   }
 
   const tie = () => {
